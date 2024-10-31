@@ -16,7 +16,13 @@ const Input: React.FC<InputProps> = ({ label, ...props }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={[styles.input, props.style]} {...field} {...props} />
+      <TextInput
+        style={[styles.input, props.style]}
+        {...field}
+        {...props}
+        onChangeText={field.onChange(field.name)}
+        onBlur={field.onBlur(field.name)}
+      />
       {meta.touched && meta.error ? (
         <Text style={styles.error}>{meta.error}</Text>
       ) : null}

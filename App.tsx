@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './src/pages/HomePage';
 import LoginPage from './src/pages/LoginPage';
 import RegisterPage from './src/pages/RegisterPage';
+import DashboardPage from './src/pages/DashboardPage';
+import AddProductPage from './src/pages/AddProductPage';
+import StockPage from './src/pages/StockPage';
+import HistoryPage from './src/pages/HistoryPage';
 import { RootStackParamList } from './src/types/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +34,10 @@ export default function App() {
         />
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="Register" component={RegisterPage} />
+        <Stack.Screen name="Dashboard" component={DashboardPage} />
+        <Stack.Screen name="AddProduct" component={AddProductPage} />
+        <Stack.Screen name="Stock" component={StockPage} />
+        <Stack.Screen name="History" component={HistoryPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -2,7 +2,6 @@ import axios, { AxiosError } from 'axios';
 
 const API_URL = 'http://192.168.18.7:3000/auth';
 
-
 interface Response {
   token: string;
 }
@@ -13,10 +12,10 @@ export const login = async (
 ): Promise<Response> => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
-    
-    localStorage.setItem('access_token', response.data.token);
-    return response.data;
 
+    localStorage.setItem('access_token', response.data.token);
+    localStorage.setItem('nome', response.data.name);
+    return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw error.response?.data || 'Erro ao fazer login';
@@ -40,7 +39,6 @@ export const register = async (
 
     localStorage.setItem('access_token', response.data.token);
     return response.data;
-
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       throw error.response?.data || 'Erro ao registrar';

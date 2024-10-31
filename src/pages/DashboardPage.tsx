@@ -3,35 +3,45 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
-import Logo from '../components/Logo';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
-const HomePage = () => {
+const DashboardPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.container}>
-      <Logo />
-      <Text style={styles.title}>Bem-vindo ao App</Text>
+      <Text style={styles.title}>
+        Bem-vindo de volta, <br /> {localStorage.getItem('nome')}
+      </Text>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Login')}
+        onPress={() => navigation.navigate('AddProduct')}
       >
-        <Text style={styles.buttonText}>Fazer Login</Text>
+        <Text style={styles.buttonText}>
+          Adicionar produto &nbsp;
+          <FontAwesome5 name="plus" size={20} color="#fff" />
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.secondButton}
-        onPress={() => navigation.navigate('Register')}
+        style={styles.button}
+        onPress={() => navigation.navigate('Stock')}
       >
-        <Text style={styles.secondButtonText}>Fazer Cadastro</Text>
+        <Text style={styles.buttonText}>
+          Ver estoque &nbsp;
+          <FontAwesome5 name="box" size={20} color="#fff" />
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.secondButton}
-        onPress={() => navigation.navigate('Dashboard')}
+        style={styles.button}
+        onPress={() => navigation.navigate('History')}
       >
-        <Text style={styles.secondButtonText}>Dashboard</Text>
+        <Text style={styles.buttonText}>
+          Ver histórico &nbsp;
+          <FontAwesome5 name="history" size={20} color="#fff" />
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -88,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomePage;
+export default DashboardPage;
