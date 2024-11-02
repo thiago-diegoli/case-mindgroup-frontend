@@ -12,8 +12,7 @@ export const login = async (
 ): Promise<Response> => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
-
-    localStorage.setItem('access_token', response.data.token);
+    localStorage.setItem('access_token', response.data.access_token);
     localStorage.setItem('nome', response.data.name);
     return response.data;
   } catch (error: unknown) {
@@ -37,7 +36,7 @@ export const register = async (
       name,
     });
 
-    localStorage.setItem('access_token', response.data.token);
+    localStorage.setItem('access_token', response.data.access_token);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

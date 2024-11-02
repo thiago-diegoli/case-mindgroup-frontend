@@ -1,5 +1,11 @@
 import React from 'react';
-import { TextInput, View, Text, StyleSheet } from 'react-native';
+import {
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  KeyboardTypeOptions,
+} from 'react-native';
 import { useField } from 'formik';
 
 interface InputProps {
@@ -8,6 +14,9 @@ interface InputProps {
   secureTextEntry?: boolean;
   style?: object;
   name: string;
+  keyboardType?: KeyboardTypeOptions;
+  editable?: boolean;
+  onChangeText?: (text: string) => void;
 }
 
 const Input: React.FC<InputProps> = ({ label, ...props }) => {
@@ -32,6 +41,7 @@ const Input: React.FC<InputProps> = ({ label, ...props }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginHorizontal: 15,
     marginBottom: 20,
   },
   label: {
