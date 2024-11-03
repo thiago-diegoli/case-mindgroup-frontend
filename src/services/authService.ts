@@ -14,6 +14,8 @@ export const login = async (
     const response = await axios.post(`${API_URL}/login`, { email, password });
     localStorage.setItem('access_token', response.data.access_token);
     localStorage.setItem('nome', response.data.name);
+    localStorage.setItem('id', response.data.id);
+
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -37,6 +39,9 @@ export const register = async (
     });
 
     localStorage.setItem('access_token', response.data.access_token);
+    localStorage.setItem('nome', response.data.name);
+    localStorage.setItem('id', response.data.id);
+
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

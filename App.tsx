@@ -6,6 +6,7 @@ import LoginPage from './src/pages/LoginPage';
 import RegisterPage from './src/pages/RegisterPage';
 import DashboardPage from './src/pages/DashboardPage';
 import AddProductPage from './src/pages/AddProductPage';
+import EditProductPage from './src/pages/EditProductPage';
 import StockPage from './src/pages/StockPage';
 import HistoryPage from './src/pages/HistoryPage';
 import { RootStackParamList } from './src/types/types';
@@ -38,6 +39,7 @@ export default function App() {
         <Stack.Screen name="AddProduct" component={AddProductPage} />
         <Stack.Screen name="Stock" component={StockPage} />
         <Stack.Screen name="History" component={HistoryPage} />
+        <Stack.Screen name="EditProductPage" component={EditProductPage} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
