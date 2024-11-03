@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 import Title from '../components/Title';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -14,17 +14,12 @@ import { Product } from '../services/productService';
 import { editProductValidationSchema } from '../validators/editProductValidation';
 
 interface EditProductPageProps {
-  route: {
-    params: {
-      product: Product;
-    };
-  };
+  route: RouteProp<RootStackParamList, 'EditProductPage'>;
 }
 
 const EditProductPage: React.FC<EditProductPageProps> = ({ route }) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const { product } = route.params;
-
   const handleEditProduct = async (values: {
     name: any;
     description: any;
@@ -104,12 +99,6 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ route }) => {
               name="description"
             />
             <Input
-              label="Imagem"
-              placeholder="Imagem (selecionada)"
-              name="image"
-              editable={false}
-            />
-            <Input
               label="Valor"
               placeholder="Preço"
               name="price"
@@ -118,10 +107,12 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ route }) => {
                 setFieldValue('price', text ? parseFloat(text) : null)
               }
             />
-            <Button
-              title="Selecionar Imagem"
+            <TouchableOpacity
               onPress={() => handleImagePick(setFieldValue)}
-            />
+              style={styles.buttonImg}
+            >
+              <Text style={styles.buttonText}>Selecionar Imagem</Text>
+            </TouchableOpacity>
             <SubmitButton
               title="Editar produto"
               onPress={handleSubmit}
@@ -142,6 +133,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#111115',
     padding: 20,
     paddingBottom: 50,
+  },
+  buttonImg: {
+    backgroundColor: '#02a9db',
+    marginTop: 10,
+    marginHorizontal: 15,
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });
 

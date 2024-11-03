@@ -150,7 +150,7 @@ export const updateProduct = async (
 
     const updateData = {
       ...product,
-      value: product.price,
+      value: parseFloat(product.price as any) || 0,
       userId,
     };
 
