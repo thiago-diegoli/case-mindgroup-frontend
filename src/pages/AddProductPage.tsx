@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../components/Input';
@@ -85,12 +85,6 @@ const AddProductPage = () => {
               name="description"
             />
             <Input
-              label="Imagem"
-              placeholder="Imagem (selecionada)"
-              name="image"
-              editable={false}
-            />
-            <Input
               label="Valor"
               placeholder="Preço"
               name="price"
@@ -99,10 +93,12 @@ const AddProductPage = () => {
                 setFieldValue('price', text ? parseFloat(text) : null)
               }
             />
-            <Button
-              title="Selecionar Imagem"
+            <TouchableOpacity
               onPress={() => handleImagePick(setFieldValue)}
-            />
+              style={styles.buttonImg}
+            >
+              <Text style={styles.buttonText}>Selecionar Imagem</Text>
+            </TouchableOpacity>
             <SubmitButton
               title="Cadastrar produto"
               onPress={handleSubmit}
@@ -123,6 +119,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#111115',
     padding: 20,
     paddingBottom: 50,
+  },
+  buttonImg: {
+    backgroundColor: '#02a9db',
+    marginTop: 10,
+    marginHorizontal: 15,
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });
 
