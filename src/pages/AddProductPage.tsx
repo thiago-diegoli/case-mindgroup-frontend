@@ -10,16 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { createProduct } from '../services/productService';
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Campo obrigatório'),
-  description: Yup.string().required('Campo obrigatório'),
-  image: Yup.string().nullable(),
-  price: Yup.number()
-    .required('Campo obrigatório')
-    .positive('Deve ser um valor positivo')
-    .nullable(),
-});
+import { addProductValidationSchema } from '../validators/addProductValidation';
 
 const AddProductPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -82,7 +73,7 @@ const AddProductPage = () => {
           image: '',
           price: 0,
         }}
-        validationSchema={validationSchema}
+        validationSchema={addProductValidationSchema}
         onSubmit={handleAddProduct}
       >
         {({ handleSubmit, isSubmitting, setFieldValue }) => (

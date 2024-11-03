@@ -11,6 +11,7 @@ import { RootStackParamList } from '../types/types';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { updateProduct } from '../services/productService';
 import { Product } from '../services/productService';
+import { editProductValidationSchema } from '../validators/editProductValidation';
 
 interface EditProductPageProps {
   route: {
@@ -19,16 +20,6 @@ interface EditProductPageProps {
     };
   };
 }
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Campo obrigatório'),
-  description: Yup.string().required('Campo obrigatório'),
-  image: Yup.string().nullable(),
-  price: Yup.number()
-    .required('Campo obrigatório')
-    .positive('Deve ser um valor positivo')
-    .nullable(),
-});
 
 const EditProductPage: React.FC<EditProductPageProps> = ({ route }) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -101,7 +92,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ route }) => {
           image: product.image,
           price: product.price,
         }}
-        validationSchema={validationSchema}
+        validationSchema={editProductValidationSchema}
         onSubmit={handleEditProduct}
       >
         {({ handleSubmit, isSubmitting, setFieldValue }) => (

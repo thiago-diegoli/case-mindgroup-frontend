@@ -9,11 +9,7 @@ import Title from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Email inválido').required('Campo obrigatório'),
-  password: Yup.string().required('Campo obrigatório'),
-});
+import { loginValidationSchema } from '../validators/loginValidation';
 
 const LoginPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -32,7 +28,7 @@ const LoginPage = () => {
       <Title>Login</Title>
       <Formik
         initialValues={{ email: '', password: '' }}
-        validationSchema={validationSchema}
+        validationSchema={loginValidationSchema}
         onSubmit={handleLogin}
       >
         {({ handleSubmit, isSubmitting }) => (

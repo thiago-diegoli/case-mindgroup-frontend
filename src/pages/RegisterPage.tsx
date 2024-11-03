@@ -2,21 +2,14 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { register } from '../services/authService'; // Importar o serviço
+import { register } from '../services/authService';
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 import Title from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/types';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Email inválido').required('Campo obrigatório'),
-  password: Yup.string()
-    .min(6, 'A senha deve ter pelo menos 6 caracteres')
-    .required('Campo obrigatório'),
-  name: Yup.string().required('Campo obrigatório'),
-});
+import { registerValidationSchema } from '../validators/registerValidation';
 
 const RegisterPage = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -40,7 +33,7 @@ const RegisterPage = () => {
       <Title>Cadastre-se</Title>
       <Formik
         initialValues={{ email: '', password: '', name: '' }}
-        validationSchema={validationSchema}
+        validationSchema={registerValidationSchema}
         onSubmit={handleRegister}
       >
         {({ handleSubmit, isSubmitting }) => (
