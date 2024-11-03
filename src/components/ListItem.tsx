@@ -1,6 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import {
+  createStockEntry,
+  CreateStockHistoryDto,
+} from '../services/stockHistoryService';
 
 interface ListItemProps {
   name: string;
@@ -8,6 +12,7 @@ interface ListItemProps {
   price: number;
   imageBase64: string;
   userId: number | null;
+  productId: string;
   onEdit: () => void;
   onDelete: () => void;
 }
@@ -18,14 +23,41 @@ const ListItem: React.FC<ListItemProps> = ({
   price,
   imageBase64,
   userId,
+  productId,
   onEdit,
   onDelete,
 }) => {
-  // Obtém o ID do usuário do localStorage
   const loggedInUserId = Number(localStorage.getItem('id'));
 
-  // Verifica se o userId do produto corresponde ao ID do usuário logado
   const showActions = userId === loggedInUserId;
+
+  const handleIncreaseStock = async () => {
+    const dto: CreateStockHistoryDto = {
+      productId,
+      action: 'in',
+      userId: loggedInUserId,
+    };
+    try {
+      await createStockEntry(dto);
+      console.log(`Estoque aumentado para o produto ${name}`);
+    } catch (error) {
+      console.error('Erro ao aumentar estoque:', error);
+    }
+  };
+
+  const handleDecreaseStock = async () => {
+    const dto: CreateStockHistoryDto = {
+      productId,
+      action: 'out',
+      userId: loggedInUserId,
+    };
+    try {
+      await createStockEntry(dto);
+      console.log(`Estoque diminuído para o produto ${name}`);
+    } catch (error) {
+      console.error('Erro ao diminuir estoque:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -35,22 +67,40 @@ const ListItem: React.FC<ListItemProps> = ({
         <Text style={styles.description}>{description}</Text>
         <Text style={styles.price}>R$ {price.toFixed(2)}</Text>
       </View>
-      {showActions && ( // Renderiza os ícones apenas se showActions for true
+      {showActions && (
         <View style={styles.actions}>
-          <FontAwesome5
-            name="pencil-alt"
-            size={20}
-            color="#039aff"
-            onPress={onEdit}
-            style={styles.icon}
-          />
-          <FontAwesome5
-            name="trash"
-            size={20}
-            color="#d10f0f"
-            onPress={onDelete}
-            style={styles.icon}
-          />
+          <View style={styles.editDeleteActions}>
+            <FontAwesome5
+              name="pencil-alt"
+              size={20}
+              color="#039aff"
+              onPress={onEdit}
+              style={styles.icon}
+            />
+            <FontAwesome5
+              name="trash"
+              size={20}
+              color="#d10f0f"
+              onPress={onDelete}
+              style={styles.icon}
+            />
+          </View>
+          <View style={styles.stockActions}>
+            <FontAwesome5
+              name="plus"
+              onPress={handleIncreaseStock}
+              size={20}
+              color="#0f0"
+              style={styles.icon}
+            />
+            <FontAwesome5
+              name="minus"
+              onPress={handleDecreaseStock}
+              size={20}
+              color="#f00"
+              style={styles.icon}
+            />
+          </View>
         </View>
       )}
     </View>
@@ -90,9 +140,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 'auto',
+  },
+  editDeleteActions: {
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  stockActions: {
+    marginLeft: 8,
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   icon: {
     padding: 5,

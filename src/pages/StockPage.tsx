@@ -78,6 +78,7 @@ const StockPage = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ListItem
+            productId={item.id}
             name={item.name}
             description={item.description}
             price={item.price}

@@ -39,7 +39,7 @@ export default function App() {
         <Stack.Screen name="AddProduct" component={AddProductPage} />
         <Stack.Screen name="Stock" component={StockPage} />
         <Stack.Screen name="History" component={HistoryPage} />
-        <Stack.Screen name="EditProductPage" component={EditProductPage} /> 
+        <Stack.Screen name="EditProductPage" component={EditProductPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
